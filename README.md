@@ -1,2 +1,1 @@
-# react-woter
 # react-voter
