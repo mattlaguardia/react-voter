@@ -1,6 +1,6 @@
 var React = require('react');
 var ReactDOM = require('react-dom');
-var Title = require('./components/Title');
+var APP = require('./components/APP');
 
 
-ReactDOM.render(<Title />, document.getElementById('react-container'));
+ReactDOM.render(<APP />, document.getElementById('react-container'));
