@@ -46,12 +46,30 @@
 
 	'use strict';
 
+	var _reactRouter = __webpack_require__(173);
+
 	var React = __webpack_require__(1);
 	var ReactDOM = __webpack_require__(34);
+	var Audience = __webpack_require__(236);
+	var Speaker = __webpack_require__(237);
+	var Board = __webpack_require__(238);
 
 	var APP = __webpack_require__(172);
 
-	ReactDOM.render(React.createElement(APP, null), document.getElementById('react-container'));
+	var routes = React.createElement(
+	  _reactRouter.Router,
+	  { history: _reactRouter.hashHistory },
+	  routes,
+	  React.createElement(_reactRouter.Route, { path: '/', component: Audience }),
+	  React.createElement(_reactRouter.Route, { path: 'speaker', component: Speaker }),
+	  React.createElement(_reactRouter.Route, { path: 'board', component: Board })
+	);
+
+	ReactDOM.render(React.createElement(
+	  APP,
+	  null,
+	  routes
+	), document.getElementById('react-container'));
 
 /***/ },
 /* 1 */
@@ -21479,14 +21497,7 @@
 	      'div',
 	      null,
 	      React.createElement(Header, { title: this.state.title, status: this.state.status }),
-	      React.createElement(
-	        _reactRouter.Router,
-	        { history: _reactRouter.hashHistory },
-	        React.createElement(_reactRouter.Route, { path: '/', component: Audience }),
-	        React.createElement(_reactRouter.Route, { path: 'speaker', component: Speaker }),
-	        React.createElement(_reactRouter.Route, { path: 'board', component: Board }),
-	        React.createElement(_reactRouter.Route, { path: '*', component: NoMatch })
-	      )
+	      this.props.children
 	    );
 	  }
 	});

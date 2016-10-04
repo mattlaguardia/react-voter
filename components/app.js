@@ -41,14 +41,7 @@ var APP = React.createClass({
     return (
       <div>
         <Header title={this.state.title} status={this.state.status} />
-
-        <Router history={hashHistory}>
-          <Route path='/' component={Audience} />
-          <Route path='speaker' component={Speaker} />
-          <Route path='board' component={Board} />
-          <Route path='*' component={NoMatch} />
-        </Router>
-
+        {this.props.children}
       </div>
     );
   }
