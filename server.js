@@ -1,8 +1,8 @@
 var express = require('express');
-
 var app = express();
 
 var connections = [];
+var title = 'Untitled Presentation'
 
 // static is middleware //
 app.use(express.static('./public'));
@@ -19,6 +19,10 @@ io.sockets.on('connection', function(socket) {
     connections.splice(connections.indexOf(socket), 1);
     socket.disconnect();
     console.log('Disconnected: %s sockets remaining.', connections.length);
+  })
+
+  socket.emit('Welcome', {
+    title: title
   })
 
   connections.push(socket);
