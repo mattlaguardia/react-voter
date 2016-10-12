@@ -5,31 +5,32 @@ var Board = require('./Board')
 
 import { Router, Route, Link, IndexRoute, hashHistory, browserHistory } from 'react-router'
 
-var io = require('socket.io-client');
-var Header = require('./parts/Header');
+var io = require('socket.io-client')
+var Header = require('./parts/Header')
 
 var APP = React.createClass({
 
   getInitialState() {
     return {
       status: 'disconnected',
-      title: ''
+      title: '',
+      dance: 'yasss'
     }
   },
 
   componentWillMount() {
-    this.socket = io('http://localhost:3000');
-    this.socket.on('connect', this.connect);
-    this.socket.on('disconnect', this.disconnect);
+    this.socket = io('http://localhost:3000')
+    this.socket.on('connect', this.connect)
+    this.socket.on('disconnect', this.disconnect)
     this.socket.on('Welcome', this.welcome)
   },
 
   connect() {
-    this.setState({status: 'connected'});
+    this.setState({status: 'connected'})
   },
 
   disconnect() {
-    this.setState({status: 'disconnected'});
+    this.setState({status: 'disconnected'})
   },
 
   welcome(serverState) {
@@ -41,10 +42,10 @@ var APP = React.createClass({
     return (
       <div>
         <Header title={this.state.title} status={this.state.status} />
-        {this.props.children}
+        {React.cloneElement(this.props.children, this.state)}
       </div>
-    );
+    )
   }
-});
+})
 
 export default APP;
