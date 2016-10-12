@@ -1,12 +1,15 @@
-var React = require('react');
-var Audience = require('./Audience')
-var Speaker = require('./Speaker')
-var Board = require('./Board')
+////////////////////////
+// Main APP Component //
+////////////////////////
+import React from 'react'
+import Audience from './Audience'
+import Speaker from './Speaker'
+import Board from './Board'
 
 import { Router, Route, Link, IndexRoute, hashHistory, browserHistory } from 'react-router'
 
-var io = require('socket.io-client')
-var Header = require('./parts/Header')
+import io from 'socket.io-client'
+import Header from './parts/Header'
 
 var APP = React.createClass({
 
@@ -25,6 +28,10 @@ var APP = React.createClass({
     this.socket.on('Welcome', this.welcome)
   },
 
+  emit(eventName, payload) {
+    this.socket.emit(eventName, payload)
+  },
+
   connect() {
     this.setState({status: 'connected'})
   },
@@ -37,15 +44,14 @@ var APP = React.createClass({
     this.setState({ title: serverState.title })
   },
 
-  // app literal in react -> render function //
   render () {
     return (
       <div>
-        <Header title={this.state.title} status={this.state.status} />
-        {React.cloneElement(this.props.children, this.state)}
+        <Header {...this.state} />
+        { React.cloneElement(this.props.children, { emit: this.emit, ...this.state }) }
       </div>
     )
   }
 })
 
-export default APP;
+export default APP

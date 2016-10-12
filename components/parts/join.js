@@ -6,7 +6,8 @@ import React from 'react'
 var Join = React.createClass({
   join () {
     var memberName = this.refs.name.value // looks at ref
-    alert("TODO: Join Member " + memberName)
+    console.log(memberName)
+    this.props.emit("join", {name: memberName})
   },
 
   render () {
