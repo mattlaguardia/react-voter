@@ -27371,11 +27371,31 @@
 	        _partsDisplay2['default'],
 	        { 'if': this.props.status === 'connected' },
 	        _react2['default'].createElement(
-	          'h1',
-	          null,
-	          'Join the session!'
+	          _partsDisplay2['default'],
+	          { 'if': this.props.member.name },
+	          _react2['default'].createElement(
+	            'h2',
+	            null,
+	            'Welcome ',
+	            this.props.member.name,
+	            '!'
+	          ),
+	          _react2['default'].createElement(
+	            'p',
+	            null,
+	            'Questions will appear here.'
+	          )
 	        ),
-	        _react2['default'].createElement(_partsJoin2['default'], { emit: this.props.emit })
+	        _react2['default'].createElement(
+	          _partsDisplay2['default'],
+	          { 'if': !this.props.member.name },
+	          _react2['default'].createElement(
+	            'h1',
+	            null,
+	            'Join the session!'
+	          ),
+	          _react2['default'].createElement(_partsJoin2['default'], { emit: this.props.emit })
+	        )
 	      )
 	    );
 	  }
@@ -27647,7 +27667,7 @@
 	    return {
 	      status: 'disconnected',
 	      title: '',
-	      dance: 'yasss'
+	      member: {}
 	    };
 	  },
 
@@ -27656,6 +27676,7 @@
 	    this.socket.on('connect', this.connect);
 	    this.socket.on('disconnect', this.disconnect);
 	    this.socket.on('Welcome', this.welcome);
+	    this.socket.on('joined', this.joined);
 	  },
 
 	  emit: function emit(eventName, payload) {
@@ -27672,6 +27693,9 @@
 
 	  welcome: function welcome(serverState) {
 	    this.setState({ title: serverState.title });
+	  },
+	  joined: function joined(member) {
+	    this.setState({ member: member });
 	  },
 
 	  render: function render() {

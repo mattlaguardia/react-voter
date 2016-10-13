@@ -22,7 +22,12 @@ io.sockets.on('connection', function(socket) {
     console.log('Disconnected: %s sockets remaining.', connections.length);
   })
   socket.on("join", function(payload) {
-    console.log("Audience joined: %", payload.name)
+    var newMember = {
+      id: this.id,
+      name: payload.name
+    }
+    this.emit('joined', newMember)
+    console.log("Audience joined: %s", payload.name)
   })
   socket.emit('Welcome', {
     title: title
