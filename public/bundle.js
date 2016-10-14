@@ -27383,6 +27383,12 @@
 	          _react2['default'].createElement(
 	            'p',
 	            null,
+	            this.props.audience.length,
+	            ' audience members connected'
+	          ),
+	          _react2['default'].createElement(
+	            'p',
+	            null,
 	            'Questions will appear here.'
 	          )
 	        ),
@@ -27667,7 +27673,8 @@
 	    return {
 	      status: 'disconnected',
 	      title: '',
-	      member: {}
+	      member: {},
+	      audience: []
 	    };
 	  },
 
@@ -27677,25 +27684,34 @@
 	    this.socket.on('disconnect', this.disconnect);
 	    this.socket.on('Welcome', this.welcome);
 	    this.socket.on('joined', this.joined);
+	    this.socket.on('audience', this.updateAudience);
 	  },
 
 	  emit: function emit(eventName, payload) {
 	    this.socket.emit(eventName, payload);
 	  },
-
 	  connect: function connect() {
+
+	    var member = sessionStorage.member ? JSON.parse(sessionStorage.member) : null;
+
+	    if (member) {
+	      this.emit('join', member);
+	    }
+
 	    this.setState({ status: 'connected' });
 	  },
-
 	  disconnect: function disconnect() {
 	    this.setState({ status: 'disconnected' });
 	  },
-
 	  welcome: function welcome(serverState) {
 	    this.setState({ title: serverState.title });
 	  },
 	  joined: function joined(member) {
+	    sessionStorage.member = JSON.stringify(member);
 	    this.setState({ member: member });
+	  },
+	  updateAudience: function updateAudience(audience) {
+	    this.setState({ audience: audience });
 	  },
 
 	  render: function render() {
