@@ -27522,6 +27522,10 @@
 
 	var _partsJoinSpeaker2 = _interopRequireDefault(_partsJoinSpeaker);
 
+	var _partsAttendance = __webpack_require__(295);
+
+	var _partsAttendance2 = _interopRequireDefault(_partsAttendance);
+
 	var Speaker = _react2['default'].createClass({
 	  displayName: 'Speaker',
 
@@ -27540,11 +27544,7 @@
 	            null,
 	            'Questions'
 	          ),
-	          _react2['default'].createElement(
-	            'p',
-	            null,
-	            'Attendance'
-	          )
+	          _react2['default'].createElement(_partsAttendance2['default'], { audience: this.props.audience })
 	        ),
 	        _react2['default'].createElement(
 	          _partsDisplay2['default'],
@@ -27810,9 +27810,7 @@
 	  },
 	  disconnect: function disconnect() {
 	    this.setState({
-	      status: 'disconnected',
-	      title: 'Disconnected',
-	      speaker: ''
+	      status: 'disconnected'
 	    });
 	  },
 	  updateState: function updateState(serverState) {
@@ -27830,6 +27828,13 @@
 	      sessionStorage.title = presentation.title;
 	    }
 	    this.setState(presentation);
+	  },
+	  end: function end() {
+	    this.setState({
+	      status: 'disconnected',
+	      title: 'Disconnected',
+	      speaker: ''
+	    });
 	  },
 
 	  render: function render() {
@@ -35323,6 +35328,87 @@
 	});
 
 	module.exports = Header;
+
+/***/ },
+/* 295 */
+/***/ function(module, exports, __webpack_require__) {
+
+	"use strict";
+
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { "default": obj }; }
+
+	var _react = __webpack_require__(3);
+
+	var _react2 = _interopRequireDefault(_react);
+
+	var Attendance = _react2["default"].createClass({
+	  displayName: "Attendance",
+
+	  addMemberRow: function addMemberRow(member, i) {
+	    return _react2["default"].createElement(
+	      "tr",
+	      { key: i },
+	      _react2["default"].createElement(
+	        "td",
+	        null,
+	        member.name
+	      ),
+	      _react2["default"].createElement(
+	        "td",
+	        null,
+	        member.id
+	      )
+	    );
+	  },
+
+	  render: function render() {
+	    return _react2["default"].createElement(
+	      "div",
+	      null,
+	      _react2["default"].createElement(
+	        "h2",
+	        null,
+	        "Attendance - ",
+	        this.props.audience.length,
+	        " members"
+	      ),
+	      _react2["default"].createElement(
+	        "table",
+	        { className: "table table-striped" },
+	        _react2["default"].createElement(
+	          "thead",
+	          null,
+	          _react2["default"].createElement(
+	            "tr",
+	            null,
+	            _react2["default"].createElement(
+	              "th",
+	              null,
+	              "Audience memberName"
+	            ),
+	            _react2["default"].createElement(
+	              "th",
+	              null,
+	              "Socket ID"
+	            )
+	          )
+	        ),
+	        _react2["default"].createElement(
+	          "tbody",
+	          null,
+	          this.props.audience.map(this.addMemberRow)
+	        )
+	      )
+	    );
+	  }
+	});
+
+	exports["default"] = Attendance;
+	module.exports = exports["default"];
 
 /***/ }
 /******/ ]);

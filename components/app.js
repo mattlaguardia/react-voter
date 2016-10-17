@@ -51,9 +51,7 @@ var APP = React.createClass({
   },
   disconnect() {
     this.setState({
-      status: 'disconnected',
-      title: 'Disconnected',
-      speaker: ''
+      status: 'disconnected'
     })
   },
   updateState(serverState) {
@@ -71,6 +69,13 @@ var APP = React.createClass({
       sessionStorage.title = presentation.title
     }
     this.setState(presentation)
+  },
+  end() {
+    this.setState({
+      status: 'disconnected',
+      title: 'Disconnected',
+      speaker: ''
+    })
   },
 
   render () {
