@@ -5,6 +5,7 @@ import React from 'react'
 import Display from './parts/Display'
 import JoinSpeaker from './parts/JoinSpeaker'
 import Attendance from './parts/Attendance'
+import Questions from './parts/Questions'
 
 var Speaker = React.createClass({
   render () {
@@ -12,7 +13,7 @@ var Speaker = React.createClass({
       <div>
         <Display if={this.props.status === 'connected'}>
           <Display if={this.props.member.name && this.props.member.type === 'speaker'}>
-            <p>Questions</p>
+            <Questions questions={this.props.questions} emit={this.props.emit} />
             <Attendance audience={this.props.audience} />
           </Display>
           <Display if={!this.props.member.name} >

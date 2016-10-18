@@ -6,6 +6,9 @@ var connections = []
 var title = 'Untitled Presentation'
 var audience = []
 var speaker = {}
+var questions = require("./questions")
+var currentQuestion = false
+
 
 // static is middleware //
 app.use(express.static('./public'))
@@ -60,11 +63,18 @@ io.sockets.on('connection', function(socket) {
     io.sockets.emit('start', { title: payload.title, speaker: speaker.name })
     console.log("Presentation Started: '%s' by %s", payload.title, speaker.name)
   })
+  socket.on('ask', function(question) {
+    currentQuestion = question
+    io.sockets.emit('ask', currentQuestion)
+    console.log('Questioned Asked: %s', question.q)
+  })
 
   socket.emit('welcome', {
     title: title,
     audience: audience,
-    speaker: speaker.name
+    speaker: speaker.name,
+    questions: questions,
+    currentQuestion: currentQuestion
   })
 
   connections.push(socket)
