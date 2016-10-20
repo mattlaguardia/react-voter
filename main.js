@@ -14,7 +14,7 @@ const appHistory = useRouterHistory(createHashHistory)({ queryKey: false })
 var NotFoundRoute = Router.NotFoundRoute
 
 
-var APP = require('./components/APP')
+var APP = require('./components/app.js')
 var routes = (
   <Route path='/' component={APP}>
     <IndexRoute component={Audience} />
