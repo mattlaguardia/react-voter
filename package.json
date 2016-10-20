@@ -4,8 +4,8 @@
   "description": "react voting app with websockets",
   "main": "server.js",
   "scripts": {
-    "start": "node ./node_modules/webpack-dev-server/bin/webpack-dev-server.js",
-    "prod": "NODE_ENV=production node server.js",
+    "start": "node server.js",
+    "test": "echo \"Error: no test specified\" && exit 1",
     "postinstall": "webpack -p"
   },
   "author": "",
