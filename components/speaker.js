@@ -2,10 +2,10 @@
 // Speaker Component //
 ///////////////////////
 import React from 'react'
-import Display from './parts/Display'
-import JoinSpeaker from './parts/JoinSpeaker'
-import Attendance from './parts/Attendance'
-import Questions from './parts/Questions'
+import Display from './parts/display.js'
+import JoinSpeaker from './parts/joinSpeaker.js'
+import Attendance from './parts/attendance.js'
+import Questions from './parts/questions.js'
 
 var Speaker = React.createClass({
   render () {

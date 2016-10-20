@@ -1,9 +1,9 @@
 var React = require('react')
 var ReactDOM = require('react-dom')
-var Audience = require('./components/Audience')
-var Speaker = require('./components/Speaker')
-var Board = require('./components/Board')
-var Whoops404 = require('./components/404')
+var Audience = require('./components/audience.js')
+var Speaker = require('./components/speaker.js')
+var Board = require('./components/board.js')
+var Whoops404 = require('./components/404.js')
 
 //////////////////
 // React Routes //

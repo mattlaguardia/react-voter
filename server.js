@@ -26,7 +26,7 @@ io.sockets.on('connection', function(socket) {
   socket.once('disconnect', function() {
 
     var member = _.findWhere(audience, { id: this.id })
-
+    console.log(member)
     if(member) {
       audience.splice(audience.indexOf(member), 1)
       io.sockets.emit('audience', audience)

@@ -2,9 +2,9 @@
 // Audience Component //
 ////////////////////////
 import React from 'react'
-import Display from './parts/Display'
-import Join from './parts/Join'
-import Ask from './parts/Ask'
+import Display from './parts/display.js'
+import Join from './parts/join.js'
+import Ask from './parts/ask.js'
 
 var Audience = React.createClass({
   render () {

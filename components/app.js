@@ -2,14 +2,14 @@
 // Main APP Component //
 ////////////////////////
 import React from 'react'
-import Audience from './Audience'
-import Speaker from './Speaker'
-import Board from './Board'
+import Audience from './audience.js'
+import Speaker from './speaker.js'
+import Board from './board.js'
 
 import { Router, Route, Link, IndexRoute, hashHistory, browserHistory } from 'react-router'
 
 import io from 'socket.io-client'
-import Header from './parts/Header'
+import Header from './parts/header.js'
 
 var APP = React.createClass({
 
