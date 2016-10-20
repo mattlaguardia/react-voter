@@ -4,6 +4,7 @@
 import React from 'react'
 import Display from './parts/Display'
 import Join from './parts/Join'
+import Ask from './parts/Ask'
 
 var Audience = React.createClass({
   render () {
@@ -19,10 +20,10 @@ var Audience = React.createClass({
             </Display>
 
             <Display if={this.props.currentQuestion}>
-              <h2>{this.props.currentQuestion.q}</h2>
+              <Ask question={this.props.currentQuestion} />
             </Display>
           </Display>
-          
+
           <Display if={!this.props.member.name}>
             <h1>Join the session!</h1>
             <Join emit={this.props.emit} />

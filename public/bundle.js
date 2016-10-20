@@ -27360,6 +27360,10 @@
 
 	var _partsJoin2 = _interopRequireDefault(_partsJoin);
 
+	var _partsAsk = __webpack_require__(297);
+
+	var _partsAsk2 = _interopRequireDefault(_partsAsk);
+
 	var Audience = _react2['default'].createClass({
 	  displayName: 'Audience',
 
@@ -27398,11 +27402,7 @@
 	          _react2['default'].createElement(
 	            _partsDisplay2['default'],
 	            { 'if': this.props.currentQuestion },
-	            _react2['default'].createElement(
-	              'h2',
-	              null,
-	              this.props.currentQuestion.q
-	            )
+	            _react2['default'].createElement(_partsAsk2['default'], { question: this.props.currentQuestion })
 	          )
 	        ),
 	        _react2['default'].createElement(
@@ -27790,8 +27790,7 @@
 	    return _react2['default'].createElement(
 	      'h1',
 	      null,
-	      'Board: ',
-	      this.props.dance
+	      'Board: '
 	    );
 	  }
 	});
@@ -35463,8 +35462,9 @@
 	          this.props.title
 	        ),
 	        React.createElement(
-	          'p',
+	          'h3',
 	          null,
+	          'Speaker: ',
 	          this.props.speaker
 	        )
 	      ),
@@ -35482,6 +35482,78 @@
 	});
 
 	module.exports = Header;
+
+/***/ },
+/* 297 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	Object.defineProperty(exports, '__esModule', {
+	  value: true
+	});
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
+
+	var _react = __webpack_require__(3);
+
+	var _react2 = _interopRequireDefault(_react);
+
+	var Ask = _react2['default'].createClass({
+	  displayName: 'Ask',
+
+	  getInitialState: function getInitialState() {
+	    return {
+	      choices: []
+	    };
+	  },
+
+	  componentWillMount: function componentWillMount() {
+	    this.setUpChoices();
+	  },
+
+	  componentWillReceiveProps: function componentWillReceiveProps() {
+	    this.setUpChoices();
+	  },
+
+	  setUpChoices: function setUpChoices() {
+	    var choices = Object.keys(this.props.question);
+	    choices.shift();
+	    this.setState({ choices: choices });
+	  },
+
+	  addChoiceButton: function addChoiceButton(choice, i) {
+	    var buttonTypes = ['primary', 'success', 'warning', 'danger'];
+
+	    return _react2['default'].createElement(
+	      'button',
+	      { key: i, className: "col-xs-12 col-sm-6 btn btn-" + buttonTypes[i] },
+	      choice,
+	      ': ',
+	      this.props.question[choice]
+	    );
+	  },
+
+	  render: function render() {
+	    return _react2['default'].createElement(
+	      'div',
+	      { id: 'currentQuestion' },
+	      _react2['default'].createElement(
+	        'h2',
+	        null,
+	        this.props.question.q
+	      ),
+	      _react2['default'].createElement(
+	        'div',
+	        { className: 'row' },
+	        this.state.choices.map(this.addChoiceButton)
+	      )
+	    );
+	  }
+	});
+
+	exports['default'] = Ask;
+	module.exports = exports['default'];
 
 /***/ }
 /******/ ]);
