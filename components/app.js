@@ -26,7 +26,7 @@ var APP = React.createClass({
   },
 
   componentWillMount() {
-    this.socket = io('https://vote-io.herokuapp.com')
+    this.socket = io('https://vote-io.herokuapp.com/')
     this.socket.on('connect', this.connect)
     this.socket.on('disconnect', this.disconnect)
     this.socket.on('welcome', this.updateState)
