@@ -15,7 +15,8 @@ app.use(express.static('./public'))
 // static middleware for bootstrap //
 app.use(express.static('./node_modules/bootstrap/dist'))
 
-var server = app.listen(process.env.PORT || 3000);
+var server = require('http').createServer(app)
+server.listen(process.env.PORT || 3000);
 ///////////////
 // Socket io //
 ///////////////
