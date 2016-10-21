@@ -21,11 +21,8 @@ const server = require('http').createServer(app)
 // Socket io //
 ///////////////
 const io = socketIO(server)
-
-io.configure(function () {
-  io.set("transports", ["xhr-polling"]);
-  io.set("polling duration", 20);
-});
+io.set('transports', ['xhr-polling']);
+io.set('polling duration', 10);
 
 io.sockets.on('connection', function(socket) {
 
