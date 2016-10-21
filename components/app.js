@@ -11,6 +11,8 @@ import { Router, Route, Link, IndexRoute, hashHistory, browserHistory } from 're
 import io from 'socket.io-client'
 import Header from './parts/header.js'
 
+let socket = io.connect()
+
 var APP = React.createClass({
 
   getInitialState() {
@@ -26,7 +28,6 @@ var APP = React.createClass({
   },
 
   componentWillMount() {
-    this.socket = io.connect()
     this.socket.on('connect', this.connect)
     this.socket.on('disconnect', this.disconnect)
     this.socket.on('welcome', this.updateState)
