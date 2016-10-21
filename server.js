@@ -15,12 +15,13 @@ app.use(express.static('./public'))
 // static middleware for bootstrap //
 app.use(express.static('./node_modules/bootstrap/dist'))
 
-var server = require('http').createServer(app)
-server.listen(process.env.PORT || 3000);
+const server = app
+  .use((req,res) => res.sendFile(INDEX) )
+  .listen(process.env.PORT || 3000);
 ///////////////
 // Socket io //
 ///////////////
-var io = require('socket.io').listen(server)
+const io = require('socket.io').listen(server)
 
 io.sockets.on('connection', function(socket) {
 
