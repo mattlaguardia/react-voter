@@ -8,7 +8,7 @@ var audience = []
 var speaker = {}
 var questions = require("./questions")
 var currentQuestion = false
-var socketIO = require('socket.io')('http')
+var socketIO = require('socket.io')
 
 // static is middleware //
 app.use(express.static('./public'))
