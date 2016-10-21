@@ -8,20 +8,24 @@ var audience = []
 var speaker = {}
 var questions = require("./questions")
 var currentQuestion = false
-
+var socketIO = require('socket.io')
 
 // static is middleware //
 app.use(express.static('./public'))
 // static middleware for bootstrap //
 app.use(express.static('./node_modules/bootstrap/dist'))
 
-const server = app
-  .use((req,res) => res.sendFile(INDEX) )
+const server = require('http').createServer(app)
   .listen(process.env.PORT || 3000);
 ///////////////
 // Socket io //
 ///////////////
-const io = require('socket.io').listen(server)
+const io = socketIO(server)
+
+io.configure(function () {
+  io.set("transports", ["xhr-polling"]);
+  io.set("polling duration", 20);
+});
 
 io.sockets.on('connection', function(socket) {
 
