@@ -19,6 +19,12 @@ const server = require('http').createServer(app)
   .listen(process.env.PORT || 3000)
 
 app.get('*', function(req, res, next) {
+  res.header('Access-Control-Allow-Origin', '*');
+  res.header('Access-Control-Allow-Methods', 'PUT, GET, POST, DELETE, OPTIONS');
+  res.header('Access-Control-Allow-Headers', 'accept, content-type, x-parse-application-id, x-parse-rest-api-key, x-parse-session-token');
+  if ('OPTIONS' == req.method) {
+    res.send(200);
+  }
   if(req.headers['x-forwarded-proto'] != 'https' && process.env.NODE_ENV === 'production')
     res.redirect('https://'+req.hostname+req.url)
   else
