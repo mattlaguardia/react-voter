@@ -18,18 +18,18 @@ app.use(express.static('./node_modules/bootstrap/dist'))
 const server = require('http').createServer(app)
   .listen(process.env.PORT || 3000)
 
-app.get('*', function(req, res, next) {
-  res.header('Access-Control-Allow-Origin', '*');
-  res.header('Access-Control-Allow-Methods', 'PUT, GET, POST, DELETE, OPTIONS');
-  res.header('Access-Control-Allow-Headers', 'accept, content-type, x-parse-application-id, x-parse-rest-api-key, x-parse-session-token');
-  if ('OPTIONS' == req.method) {
-    res.send(200);
-  }
-  if(req.headers['x-forwarded-proto'] != 'https' && process.env.NODE_ENV === 'production')
-    res.redirect('https://'+req.hostname+req.url)
-  else
-    next() /* Continue to other routes if we're not redirecting */
-})
+// app.get('*', function(req, res, next) {
+//   res.header('Access-Control-Allow-Origin', '*');
+//   res.header('Access-Control-Allow-Methods', 'PUT, GET, POST, DELETE, OPTIONS');
+//   res.header('Access-Control-Allow-Headers', 'accept, content-type, x-parse-application-id, x-parse-rest-api-key, x-parse-session-token');
+//   if ('OPTIONS' == req.method) {
+//     res.send(200);
+//   }
+  // if(req.headers['x-forwarded-proto'] != 'https' && process.env.NODE_ENV === 'production')
+  //   res.redirect('https://'+req.hostname+req.url)
+  // else
+//     next() /* Continue to other routes if we're not redirecting */
+// })
 
 ///////////////
 // Socket io //
@@ -96,4 +96,24 @@ io.sockets.on('connection', function(socket) {
   connections.push(socket)
   console.log('Connected: %s sockets connected', connections.length)
 })
+
+var allowCrossDomain = function(req, res, next) {
+    res.setHeader('Access-Control-Allow-Origin', '*')
+    res.setHeader('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE,OPTIONS')
+    res.setHeader('Access-Control-Allow-Headers', 'Content-Type, Authorization, Content-Length, X-Requested-With')
+    res.setHeader('Access-Control-Allow-Credentials', true)
+    if(req.headers['x-forwarded-proto'] != 'https' && process.env.NODE_ENV === 'production')
+      res.redirect('https://'+req.hostname+req.url)
+    }
+    // intercept OPTIONS method
+    if ('OPTIONS' == req.method) {
+      res.send(200);
+    }
+    else {
+      next()
+    }
+}
+
+app.use(allowCrossDomain)
+
 console.log("App Server is running on port: 3000")
