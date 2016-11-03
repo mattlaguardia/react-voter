@@ -16,13 +16,21 @@ app.use(express.static('./public'))
 app.use(express.static('./node_modules/bootstrap/dist'))
 
 const server = require('http').createServer(app)
-  .listen(process.env.PORT || 3000);
+  .listen(process.env.PORT || 3000)
+
+app.get('*', function(req, res, next) {
+  if(req.headers['x-forwarded-proto'] != 'https' && process.env.NODE_ENV === 'production')
+    res.redirect('https://'+req.hostname+req.url)
+  else
+    next() /* Continue to other routes if we're not redirecting */
+})
+
 ///////////////
 // Socket io //
 ///////////////
 const io = socketIO(server)
-io.set('transports', ['xhr-polling']);
-io.set('polling duration', 10);
+// io.set('transports', ['xhr-polling']);
+// io.set('polling duration', 10);
 
 io.sockets.on('connection', function(socket) {
 
